@@ -13,7 +13,7 @@
         <java.version>1.8</java.version>
         <jetty.version>9.4.6.v20170531</jetty.version>
         <jersey.version>2.7</jersey.version>
-        <jackson.version>2.9.1</jackson.version>
+        <jackson.version>2.10.2</jackson.version>
         <junit.version>4.12</junit.version>
         <maven.version>3.20.0</maven.version>
         <mojo.version>1.6.0</mojo.version>

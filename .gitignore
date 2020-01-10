@@ -1,0 +1,19 @@
+# Idea Intellij
+.idea
+*.iml
+target
+
+# Eclipse
+.classpath
+.project
+.settings
+bin
+
+# Sqlite
+auto-guest-schema.mwb.bak
+*.db
+*.db-journal
+null
+*.mwb
+# Global
+*~

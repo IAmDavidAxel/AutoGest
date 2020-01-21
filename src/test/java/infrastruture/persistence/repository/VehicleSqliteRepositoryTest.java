@@ -56,4 +56,11 @@ public class VehicleSqliteRepositoryTest {
 
 		verify(vehicleDao).save(vehicleDto);
 	}
+
+	@Test
+	public void whenFindingAVehicle_thenDelegateActualSearchingToDAO()throws Exception{
+		vehicleSqliteRepository.find(A_PLATE_NUMBER);
+
+		verify(vehicleDao).find(A_PLATE_NUMBER);
+	}
 }

@@ -7,7 +7,7 @@ import domain.vehicle.VehicleType;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VehicleDto {
 
-	@JsonProperty(value = "plate_number")
+	@JsonProperty(value = "plateNumber")
 	private String plateNumber;
 
 	@JsonProperty(value = "model")

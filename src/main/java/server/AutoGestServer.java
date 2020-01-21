@@ -1,5 +1,6 @@
 package server;
 
+import http.CORSResponseFilter;
 import javafx.beans.property.Property;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -103,7 +104,7 @@ public class AutoGestServer {
 				resources.addAll(applicationContext.getResourcesContext());
 				return resources;
 			}
-		});
+		}).register(CORSResponseFilter.class);
 
 		ServletContainer servletContainer = new ServletContainer(resourceConfig);
 		ServletHolder servletHolder = new ServletHolder(servletContainer);

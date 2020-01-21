@@ -10,11 +10,13 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.BDDMockito.willReturn;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class VehicleJsonResourceTest {
 
+	private static final String A_PLATE_NUMBER = "78 Du 78556";
 	private VehicleJsonResource vehicleJsonResource;
 	private VehicleDto vehicleDto;
 
@@ -25,7 +27,7 @@ public class VehicleJsonResourceTest {
 
 	@Before
 	public void setUp(){
-		vehicleJsonResource = new VehicleJsonResource(managerService);
+		vehicleJsonResource = new VehicleJsonResource(managerService,vehicleService);
 	}
 
 	@Test
@@ -35,4 +37,15 @@ public class VehicleJsonResourceTest {
 
 		verify(managerService).create(vehicleDto);
 	}
+
+	@Test
+	public void whenFindingAVehicle_thenDelegateToTheVehicleService()throws Exception{
+		vehicleJsonResource.findVehicleByPlateNumber(A_PLATE_NUMBER);
+
+		verify(vehicleService).find(A_PLATE_NUMBER);
+	}
+
+
+
+
 }

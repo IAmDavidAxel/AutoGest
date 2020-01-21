@@ -60,8 +60,18 @@ public class Driver {
 		return vehicle;
 	}
 
-	public void assignVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
 
+	public void assignVehicle(Vehicle vehicle) throws VehicleAlreadyAssignedException{
+
+		if(isAssignedToVehicle()){
+			throw  new VehicleAlreadyAssignedException();
+		}else {
+			this.vehicle = vehicle;
+		}
+
+	}
+
+	public boolean isAssignedToVehicle() {
+		return this.vehicle!=null;
 	}
 }

@@ -54,7 +54,34 @@ public class DriverTest {
 
 		driver.assignVehicle(vehicle);
 
+		Vehicle vehicle = driver.getVehicle();
 
+		assertNotNull(vehicle);
+	}
+
+	@Test(expected = VehicleAlreadyAssignedException.class)
+	public void whenAssigningAndThereIsAlreadyAssigned_thenThrowException()throws Exception{
+		driver.assignVehicle(vehicle);
+
+		driver.assignVehicle(vehicle);
+	}
+
+	@Test
+	public void whenAssigningAVehicleIfAlreadyAssigned_thenReturnTrue() throws Exception{
+
+		driver.assignVehicle(vehicle);
+
+		boolean isAssigned = driver.isAssignedToVehicle();
+
+		assertTrue(isAssigned);
+	}
+
+	@Test
+	public void whenAssigningAVehicleNotAssigned_thenReturnFalse()throws Exception{
+
+		boolean isAssigned = driver.isAssignedToVehicle();
+
+		assertFalse(isAssigned);
 	}
 
 }

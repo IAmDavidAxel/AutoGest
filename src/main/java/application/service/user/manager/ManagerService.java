@@ -6,6 +6,7 @@ import api.resource.dto.vehicle.VehicleDto;
 import application.service.exception.DriverNotFoundServiceException;
 import application.service.exception.PersistenceInternalServiceException;
 import application.service.exception.ServiceException;
+import application.service.exception.VehicleNotFoundServiceException;
 import application.service.mission.MissionFactory;
 import application.service.user.driver.DriverFactory;
 import application.service.vehicle.VehicleFactory;
@@ -18,6 +19,7 @@ import domain.vehicle.VehicleRepository;
 import infrastruture.persistence.exception.ObjectNotFoundException;
 import infrastruture.persistence.exception.PersistenseInternalException;
 
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,6 +55,30 @@ public class ManagerService {
 
 	}
 
+	public void createMission(MissionDto missionDto) throws ServiceException {
+		String driverName = missionDto.getAssociatedDriverName();
+		String vehiclePlateNumber = missionDto.getVehiclePlateNumber();
+
+		Driver driver = findByDriverByName(driverName);
+		Vehicle vehicle = findVehicleByPlateNumber(vehiclePlateNumber);
+
+		Mission mission  = createMissionFromFactory(missionDto,driver,vehicle);
+		saveMission(mission);
+	}
+
+	private Driver findByDriverByName(String name) throws ServiceException {
+
+		try{
+			return driverRepository.findDriverByName(name);
+		}catch (PersistenseInternalException exception){
+			Logger.getGlobal().log(Level.WARNING,exception.getMessage());
+			throw  new PersistenceInternalServiceException();
+		}catch (ObjectNotFoundException exception){
+			Logger.getGlobal().log(Level.WARNING,exception.getMessage());
+			throw  new DriverNotFoundServiceException();
+		}
+	}
+
 	private void saveDriver(Driver driver) throws ServiceException{
 		try{
 			driverRepository.save(driver);
@@ -80,10 +106,17 @@ public class ManagerService {
 	}
 
 
-	public void createMission(MissionDto missionDto) throws ServiceException {
+	private Vehicle findVehicleByPlateNumber(String vehiclePlateNumber) throws ServiceException {
 
-		Mission mission  = createMissionFromFactory(missionDto);
-		saveMission(mission);
+		try{
+			return vehicleRepository.find(vehiclePlateNumber);
+		}catch (PersistenseInternalException exception){
+			Logger.getGlobal().log(Level.WARNING,exception.getMessage());
+			throw  new PersistenceInternalServiceException();
+		}catch (ObjectNotFoundException e){
+			Logger.getGlobal().log(Level.WARNING,e.getMessage());
+			throw  new VehicleNotFoundServiceException();
+		}
 	}
 
 	private void saveMission(Mission mission) throws ServiceException {
@@ -95,8 +128,8 @@ public class ManagerService {
 		}
 	}
 
-	private Mission createMissionFromFactory(MissionDto missionDto) {
-		return missionFactory.create(missionDto);
+	private Mission createMissionFromFactory(MissionDto missionDto, Driver driver, Vehicle vehicle) {
+		return missionFactory.create(missionDto,driver,vehicle);
 	}
 
 	public void associateDriverToVehicle(DriverDto driverDto) throws ServiceException{
@@ -105,18 +138,5 @@ public class ManagerService {
 
 		Driver driver = findByDriverByName(name);
 
-	}
-
-	private Driver findByDriverByName(String name) throws ServiceException {
-
-		try{
-			return driverRepository.findDriverByName(name);
-		}catch (PersistenseInternalException exception){
-			Logger.getGlobal().log(Level.WARNING,exception.getMessage());
-			throw  new PersistenceInternalServiceException();
-		}catch (ObjectNotFoundException exception){
-			Logger.getGlobal().log(Level.WARNING,exception.getMessage());
-			throw  new DriverNotFoundServiceException();
-		}
 	}
 }

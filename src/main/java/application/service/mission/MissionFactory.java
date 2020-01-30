@@ -20,8 +20,11 @@ public class MissionFactory {
 		String missionOrderNumber =missionDto.getOrderNumber();
 		LocalDate missionStartDate = LocalDate.parse(missionDto.getMissionStartDate());
 		LocalDate missionEndDate = LocalDate.parse(missionDto.getMissionEndDate());
+		String missionDescription = missionDto.getMissionDescription();
+		String associatedDriverName = missionDto.getAssociatedDriverName();
+		String driverCompanion = missionDto.getAccompanantDriverName();
 
 
-		return new Mission(missionId,location,missionOrderNumber,missionStartDate,missionEndDate,driver,vehicle);
+		return new Mission(missionId,location,missionOrderNumber,missionStartDate,missionEndDate,driver,vehicle,missionDescription,associatedDriverName, driverCompanion);
 	}
 }

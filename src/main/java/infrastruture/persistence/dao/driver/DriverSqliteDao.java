@@ -35,7 +35,21 @@ public class DriverSqliteDao implements DriverDao {
 	}
 
 	@Override
-	public List<DriverDto> findByName(String aName) throws DaoInternalException, DaoEntityNotFoundException {
+	public DriverDto findByName(String name) throws DaoInternalException, DaoEntityNotFoundException {
+
+		SqliteBuilder sqliteBuilder = new SqliteBuilder(sqliteConnection);
+
+		Map<String,Object> results = sqliteBuilder.
+				SelectAll()
+				.From("driver")
+				.Where("first_name" ,"=",name)
+				.FetchOne();
+
+		return createDriverDto(results);
+	}
+
+	@Override
+	public List<DriverDto> findListByName(String aName) throws DaoInternalException, DaoEntityNotFoundException {
 		SqliteBuilder sqliteBuilder = new SqliteBuilder(sqliteConnection);
 
 		List<Map<String, Object>> results = sqliteBuilder

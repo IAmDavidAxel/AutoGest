@@ -36,7 +36,7 @@ public class DriverSqliteRepository implements DriverRepository {
 	@Override
 	public List<Driver> findDriversByName(String name) throws PersistenseInternalException, ObjectNotFoundException {
 		try{
-			List<DriverDto> driversDto = driverDao.findByName(name);
+			List<DriverDto> driversDto = driverDao.findListByName(name);
 			List<Driver> drivers = assembleDrivers(driversDto);
 
 			return drivers;
@@ -51,7 +51,22 @@ public class DriverSqliteRepository implements DriverRepository {
 
 	@Override
 	public Driver findDriverByName(String name) throws PersistenseInternalException, ObjectNotFoundException {
-		return null;
+
+		DriverDto driverDto = getDriverFromDao(name);
+
+		return driverAssembler.assemble(driverDto);
+	}
+
+	private DriverDto getDriverFromDao(String name) throws PersistenseInternalException,ObjectNotFoundException {
+		try{
+			return driverDao.findByName(name);
+		}catch (DaoInternalException exception){
+			Logger.getGlobal().log(Level.WARNING, exception.getMessage());
+			throw new PersistenseInternalException();
+		}catch (DaoEntityNotFoundException e){
+			Logger.getGlobal().log(Level.WARNING,e.getMessage());
+			throw  new ObjectNotFoundException();
+		}
 	}
 
 	private List<Driver> assembleDrivers(List<DriverDto> driversDto) {

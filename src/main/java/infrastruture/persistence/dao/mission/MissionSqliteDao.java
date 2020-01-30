@@ -17,6 +17,19 @@ public class MissionSqliteDao implements MissionDao {
 	public void save(MissionDto missionDto) throws DaoInternalException {
 		SqliteBuilder sqliteBuilder = new SqliteBuilder(sqliteConnection);
 
+		sqliteBuilder.ReplaceInto("mission")
+				.Columns("mission_id","mission_order_number","driver_id","vehicle_id","transport_mean","mission_location","mission_start","mission_end","mission_object","accompany_with")
+				.Values(missionDto.getMissionId(),
+						missionDto.getOrderNumber(),
+						missionDto.getAssociatedDriverName(),
+						missionDto.getVehiclePlateNumber(),
+						missionDto.getMeanOfTransport(),
+						missionDto.getLocation(),
+						missionDto.getMissionStartDate(),
+						missionDto.getMissionEndDate(),
+						missionDto.getMissionDescription(),
+						missionDto.getDriverCompanion())
+				.Execute();
 
 	}
 }

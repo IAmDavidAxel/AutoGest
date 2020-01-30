@@ -37,6 +37,9 @@ public class PropertyConfiguration {
 			ApplicationConfiguration.sqliteDbName = properties.getProperty("sqlite.database.name");
 			ApplicationConfiguration.testSqliteDbName = properties.getProperty("test.sqlite.database.name");
 			ApplicationConfiguration.sqliteSchemaFileName = properties.getProperty("sqlite.schema.file.name");
+
+
+			ApplicationConfiguration.mapsApiKey = properties.getProperty("app.system.maps.api.key");
 		}
 	}
 }

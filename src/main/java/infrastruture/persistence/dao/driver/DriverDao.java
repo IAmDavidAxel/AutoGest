@@ -9,5 +9,7 @@ import java.util.List;
 public interface DriverDao {
 	void save(DriverDto driverDto) throws DaoInternalException;
 
-	List<DriverDto> findByName(String aName) throws DaoInternalException, DaoEntityNotFoundException;
+	List<DriverDto> findListByName(String aName) throws DaoInternalException, DaoEntityNotFoundException;
+
+	DriverDto findByName(String name) throws DaoInternalException,DaoEntityNotFoundException;
 }

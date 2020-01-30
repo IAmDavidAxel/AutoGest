@@ -1,14 +1,34 @@
 package api.resource.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MissionDto {
+
+	@JsonProperty(value = "order_number", access = JsonProperty.Access.READ_WRITE)
 	private String orderNumber;
-	private String location;
-	private String vehiclePlateNumber;
-	private String missionStartDate;
-	private String missionEndDate;
-	private String associatedDriverName;
-	private String accompanantDriverName;
+
+	@JsonProperty(value = "mission_description", access = JsonProperty.Access.READ_WRITE)
 	private String missionDescription;
+
+	@JsonProperty(value = "driver_name")
+	private String associatedDriverName;
+
+	@JsonProperty(value = "plate_number", access = JsonProperty.Access.READ_WRITE)
+	private String vehiclePlateNumber;
+
+	@JsonProperty(value = "location", access = JsonProperty.Access.READ_WRITE)
+	private String location;
+
+	@JsonProperty(value = "mission_start_date", access = JsonProperty.Access.READ_WRITE)
+	private String missionStartDate;
+
+	@JsonProperty(value = "mission_end_date", access = JsonProperty.Access.READ_WRITE)
+	private String missionEndDate;
+
+	@JsonProperty(value = "driver_companion", access = JsonProperty.Access.READ_WRITE)
+	private String accompanantDriverName;
+
+	@JsonProperty(value = "mean_of_transport", access = JsonProperty.Access.READ_WRITE)
 	private String meanOfTransport;
 
 	public void setOrderNumber(String orderNumber) {

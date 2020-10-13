@@ -14,7 +14,7 @@
         <jetty.version>9.4.25.v20191220</jetty.version>
         <jersey.version>2.7</jersey.version>
         <jackson.version>2.10.1</jackson.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <maven.version>3.20.0</maven.version>
         <mojo.version>1.6.0</mojo.version>
         <mockito.version>1.10.19</mockito.version>

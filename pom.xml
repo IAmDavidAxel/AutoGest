@@ -18,7 +18,7 @@
         <maven.version>3.20.0</maven.version>
         <mojo.version>1.6.0</mojo.version>
         <mockito.version>1.10.19</mockito.version>
-        <jbcrypt.version>LATEST</jbcrypt.version>
+        <jbcrypt.version>0.4</jbcrypt.version>
         <javamail.version>1.6.0</javamail.version>
         <sunmail.version>1.6.0</sunmail.version>
         <google-maps-service.version>0.2.2</google-maps-service.version>
